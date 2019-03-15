@@ -1,0 +1,4 @@
+{
+  "presets": ["env", "stage-0"],   // 从右向左解析
+  "plugins": []
+}
