@@ -1,6 +1,6 @@
 <template>
 	<div class="hello">
-		????{{desNum}}
+		~~{{desNum}}
 	</div>
 </template>
 
@@ -9,7 +9,7 @@
 		name: 'Hello',
 		data() {
 			return {
-				desNum: '0'
+				desNum: 'hello2'
 			}
 		},
 		methods: {}
