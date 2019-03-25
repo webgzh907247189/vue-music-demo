@@ -1,1 +1,0 @@
-const uglify = require('uglifyjs-webpack-plugin');

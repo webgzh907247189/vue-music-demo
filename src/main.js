@@ -5,6 +5,7 @@ import axios from 'axios'
 
 Vue.prototype.axios = axios
 
+console.log(router,'router')
 new Vue({
   el: '#app',
   router,

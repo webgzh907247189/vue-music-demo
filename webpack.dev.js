@@ -1,17 +1,29 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const DashboardPlugin = require("webpack-dashboard/plugin");
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-module.exports = {
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
+
+const setTitle = require('node-bash-title');
+setTitle('webpack  Server');
+
+module.exports = smp.wrap({
     entry: './src/main.js',
     output: {
-        filename: 'bundle.js',
+        filename: 'scripts/[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
         extensions: ['.vue', '.js', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src'),
+            '@': path.resolve('src'),
         },
         modules: [path.resolve(__dirname,'node_modules')]    // 使用绝对路径指明第三方模块存放的位置，以减少搜索步骤
     },
@@ -21,54 +33,99 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
-                // options: vueLoaderConfig,
-                include: [resolve('src')],
+                include: [path.resolve('src')],
                 exclude: /node_modules/
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader?cacheDirectory',
-                include: [resolve('src')],
+                use: ['cache-loader','babel-loader'],
+                include: [path.resolve('src')],
                 exclude: /node_modules/
             },
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
-                    'css-loader'
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../'
+                        }
+                    },
+                    // 'style-loader',  //  与MiniCssExtractPlugin.loader 冲突
+                    {
+                        loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    }
                 ],
-                include: [resolve('src')],
+                include: [path.resolve('src')],
                 exclude: /node_modules/
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
-                    'file-loader'
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            limit: 10000,
+                            name: './assets/imgs/[name].[hash].[ext]'
+                        },
+                    }
                 ],
-                options: {
-                    limit: 10000,
-                    name: './assets/imgs/[name].[hash].[ext]'
-                },
-                include: [resolve('src')],
+                include: [path.resolve('src')],
                 exclude: /node_modules/
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     'file-loader'
-                ]
+                ],
+                include: [path.resolve('src')],
+                exclude: /node_modules/
             }
         ]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    chunks: 'initial',
+                    name: 'common',
+                    minChunks: 1,
+                    maxInitialRequests: 5,
+                    minSize: 0
+                }
+            }
+        },
+        runtimeChunk: {
+            name: 'runtime'
+        }
+    },
     plugins: [
+        new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(), //  显示被替换模块的名称
+        new WebpackDeepScopeAnalysisPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "style/[name].[hash:5].css",
+            chunkFilename: "style/[id].[hash:5].css"
+        }),
         new HtmlWebpackPlugin({
-            title: 'Output Management'
+            filename: 'index.html',
+            template: './index.html',
+            loading: {
+                html: 'hello'
+            }
+        }),
+        new DashboardPlugin(),
+        new WebpackBuildNotifierPlugin({
+            title: "Webpack Build",
+            suppressSuccess: true
         })
     ],
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
+        // contentBase: path.join(__dirname, "dist"),
         host: 'localhost',      // 默认是localhost
         port: '3000',             // 端口
         open: true,             // 自动打开浏览器
@@ -84,6 +141,11 @@ module.exports = {
             // '/api/*': {
             //     target: `http://localhost:${mockPort}`
             // }
-        } 
+        },
+        before(app){
+            app.get('/test',(req,res)=>{
+                res.json({name: 'test'})
+            })
+        }
     }   
-};
+});
