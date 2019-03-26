@@ -1,11 +1,11 @@
 <template>
-	<div class="m-header">
-		<h1 class="text">VMUSICJIN</h1>
-		<router-link to="/user" class="mine" tag="div">
-			<i class="iconfont icon-list"></i>
+	<div :class="$style['m-header']">
+		<h1 :class="$style.text">VMUSICJIN</h1>
+		<router-link to="/user" :class="$style.mine" tag="div">
+			<i :class="[$style.iconfont,$style['icon-list']]"></i>
 		</router-link>
-		<router-link to="/search" class="search" tag="div">
-			<i class="iconfont icon-search"></i>
+		<router-link to="/search" :class="$style.search" tag="div">
+			<i :class="[$style.iconfont,$style['icon-search']]"></i>
 		</router-link>
 	</div>
 </template>
@@ -16,7 +16,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped module>
 	@import "@/common/scss/variable.scss";
 
 	.m-header {

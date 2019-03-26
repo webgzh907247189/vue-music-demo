@@ -1,6 +1,6 @@
 <template>
-	<div class="hello">
-		~~{{desNum}}
+	<div :class="$style.test">
+        我是test2
 	</div>
 </template>
 
@@ -9,7 +9,7 @@
 		name: 'Hello',
 		data() {
 			return {
-				desNum: 'hello2'
+				
 			}
 		},
 		methods: {}
@@ -17,5 +17,8 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss" module>
+.test{
+    
+}
 </style>

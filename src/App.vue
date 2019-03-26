@@ -1,7 +1,8 @@
 <template>
-	<div id="app">
+	<div :id="$style.app">
 		<m-header></m-header>
-		<router-view /> <!--  一级路由，载体 -->
+		<router-view>
+        </router-view> <!--  一级路由，载体 -->
 	</div>
 </template>
 
@@ -19,7 +20,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
     @import '@/common/scss/index.scss';
 	#app {
 		position: fixed;
