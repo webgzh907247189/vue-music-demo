@@ -1,13 +1,15 @@
 <template>
 	<div :id="$style.app">
 		<m-header></m-header>
+        <tab></tab>
 		<router-view>
         </router-view> <!--  一级路由，载体 -->
 	</div>
 </template>
 
 <script>
-	import MHeader from '@/components/m-header/m-header'
+    import MHeader from '@/components/m-header/m-header'
+    import Tab from '@/components/tab/tab'
 	export default {
 		name: 'app',
 		data() {
@@ -15,7 +17,8 @@
 		},
 		created() {},
 		components: {
-			MHeader
+            MHeader,
+            Tab
 		}
 	}
 </script>

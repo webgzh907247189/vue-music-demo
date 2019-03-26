@@ -6,7 +6,6 @@ import fastclick from 'fastclick'
 fastclick.attach(document.body)
 
 Vue.prototype.axios = axios
-console.log(router, 'router')
 new Vue({
 	el: '#app',
 	router,
