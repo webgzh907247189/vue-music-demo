@@ -66,6 +66,26 @@ module.exports = {
 					}
 				],
 				exclude: /node_modules/
+            },
+            {
+				test: /\.scss$/,
+				use: [{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							publicPath: '../'
+						}
+					},
+					{
+						loader: 'css-loader?modules&localIdentName=[name]_[local]-[hash:base64:5]'
+					},
+					{
+						loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+				],
+				exclude: /node_modules/
 			},
 			{
 				test: /\.(png|svg|jpg|gif)$/,

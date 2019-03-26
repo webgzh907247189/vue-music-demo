@@ -1,5 +1,5 @@
 <template>
-	<div class="hello">
+	<div class="test">
 		????{{desNum}}
 	</div>
 </template>
@@ -17,5 +17,14 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+// .test {
+//     --fontColor: blue;
+//     color: var(--fontColor);
+//     display: flex;
+// }
+// .test11 {
+//     --fontColor: blue;
+//     color: var(--fontColor);
+// }
 </style>
