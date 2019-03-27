@@ -9,7 +9,11 @@
 		"prod": "webpack --mode production --color --config webpack.prod.js",
 		"start": "npm run dev",
 		"build": "webpack --mode production",
-		"preprod": "rimraf ./dist/"
+		"preprod": "rimraf ./dist/",
+		"server": "ts-node -r tsconfig-paths/register server/app.ts",
+        "server:prod": "tsc && node ./distServer/app.js",
+        "server:dev": "nodemon",
+        "server:debug": "nodemon --config nodemon-debug.json"
 	},
 	"repository": {
 		"type": "git",
@@ -25,6 +29,8 @@
 		"autoprefixer": "^9.5.0",
 		"axios": "^0.18.0",
 		"fastclick": "^1.0.6",
+		"koa": "^2.7.0",
+		"koa-router": "^7.4.0",
 		"vue": "^2.6.9",
 		"vue-router": "^3.0.2",
 		"vuex": "^3.1.0"
@@ -41,6 +47,8 @@
 		"@babel/preset-env": "^7.4.2",
 		"@babel/preset-stage-0": "^7.0.0",
 		"@babel/runtime": "^7.4.2",
+		"@types/koa": "^2.0.48",
+		"@types/koa-router": "^7.0.40",
 		"babel-loader": "^8.0.5",
 		"cache-loader": "^2.0.1",
 		"css-loader": "^2.1.1",
@@ -50,6 +58,7 @@
 		"mini-css-extract-plugin": "^0.5.0",
 		"node-bash-title": "0.0.2",
 		"node-sass": "^4.11.0",
+		"nodemon": "^1.18.10",
 		"optimize-css-assets-webpack-plugin": "^5.0.1",
 		"postcss-cssnext": "^3.1.0",
 		"postcss-loader": "^3.0.0",
@@ -59,6 +68,8 @@
 		"speed-measure-webpack-plugin": "^1.0.0",
 		"style-loader": "^0.23.1",
 		"ts-loader": "^5.3.3",
+		"ts-node": "^8.0.3",
+		"tsconfig-paths": "^3.8.0",
 		"typescript": "^3.3.4000",
 		"uglifyjs-webpack-plugin": "^2.1.2",
 		"vue-class-component": "^7.0.2",
