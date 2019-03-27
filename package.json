@@ -11,9 +11,9 @@
 		"build": "webpack --mode production",
 		"preprod": "rimraf ./dist/",
 		"server": "ts-node -r tsconfig-paths/register server/app.ts",
-        "server:prod": "tsc && node ./distServer/app.js",
-        "server:dev": "nodemon",
-        "server:debug": "nodemon --config nodemon-debug.json"
+		"server:prod": "tsc && node ./distServer/app.js",
+		"server:dev": "nodemon",
+		"server:debug": "nodemon --config nodemon-debug.json"
 	},
 	"repository": {
 		"type": "git",
@@ -26,12 +26,20 @@
 	},
 	"homepage": "https://github.com/webgzh907247189/vue-music-demo#readme",
 	"dependencies": {
+		"apollo-cache-inmemory": "^1.5.1",
+		"apollo-client": "^2.5.1",
+		"apollo-link": "^1.2.11",
+		"apollo-link-http": "^1.5.14",
 		"autoprefixer": "^9.5.0",
 		"axios": "^0.18.0",
 		"fastclick": "^1.0.6",
+		"graphql": "^14.2.0",
+		"graphql-server-koa": "^1.4.0",
+		"graphql-tag": "^2.10.1",
 		"koa": "^2.7.0",
 		"koa-router": "^7.4.0",
 		"vue": "^2.6.9",
+		"vue-apollo": "^3.0.0-beta.28",
 		"vue-router": "^3.0.2",
 		"vuex": "^3.1.0"
 	},

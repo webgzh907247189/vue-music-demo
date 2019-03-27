@@ -1,30 +1,45 @@
 <template>
 	<div :id="$style.app">
 		<m-header></m-header>
-        <tab></tab>
+		<tab></tab>
 		<router-view>
-        </router-view> <!--  一级路由，载体 -->
+		</router-view> <!--  一级路由，载体 -->
 	</div>
 </template>
 
 <script>
-    import MHeader from '@/components/m-header/m-header'
-    import Tab from '@/components/tab/tab'
+	import gql from "graphql-tag";
+	import MHeader from '@/components/m-header/m-header'
+	import Tab from '@/components/tab/tab'
 	export default {
 		name: 'app',
 		data() {
-			return {}
+			//data中必须提前创建apollo中相应字段且字段名必须相同.
+			return {
+				hello: '',
+				loading: 0
+			}
+		},
+		apollo: {
+			hello: {
+				query() {
+					return gql `{hello}`
+				},
+				loadingKey: "loading"
+			}
 		},
 		created() {},
 		components: {
-            MHeader,
-            Tab
+			MHeader,
+			Tab
 		}
 	}
+
 </script>
 
 <style lang="scss" module>
-    @import '@/common/scss/index.scss';
+	@import '@/common/scss/index.scss';
+
 	#app {
 		position: fixed;
 		top: 0;
@@ -32,4 +47,5 @@
 		width: 100%;
 		overflow: hidden;
 	}
+
 </style>
