@@ -1,0 +1,7 @@
+@controller('')
+export class Music{
+	@get('hello')
+	async hello(ctx,next){
+		ctx.body = '???????????'
+	}
+}
