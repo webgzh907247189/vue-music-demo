@@ -1,9 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2017",
+        "target": "es6",
         "noImplicitAny": true,
         "moduleResolution": "node",
+        "emitDecoratorMetadata": true,   // 开启修饰器
+        "experimentalDecorators": true,  // 开启修饰器
+        "strictFunctionTypes": true,
+        "allowJs": true,
         "sourceMap": true,
         "outDir": "distServer",  // TS文件编译后会放入到此文件夹内
         "baseUrl": ".",
@@ -15,6 +19,7 @@
         }
     },
     "include": [
-        "server/*"
+        "server/*",
+        "server/*/*",
     ]
 }

@@ -3,7 +3,8 @@ import * as Koa from 'koa';
 interface routeInterface{
     app: Koa,
     router: Router,
-    apiPath: string
+    apiPath: string,
+    init() : void
 }
 
 export {routeInterface}

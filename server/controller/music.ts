@@ -1,8 +1,9 @@
+import { Context } from 'koa'
 import {controller,get} from '../router'
-@controller('')
+@controller('/')
 export class Music{
-	@get('hello')
-	async hello(ctx,next){
+    @get('test')
+    async hello(ctx: Context,next: any): Promise<void>{
 		ctx.body = '???????????'
 	}
 }
