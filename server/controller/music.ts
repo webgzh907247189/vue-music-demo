@@ -1,3 +1,4 @@
+import {controller,get} from '../router'
 @controller('')
 export class Music{
 	@get('hello')
