@@ -5,7 +5,6 @@ import {resolve} from 'path'
 import * as glob from 'glob'
 import {getEnv} from './config/index'
 
-// export let 
 export const symbolPrefix:symbol = Symbol('prefix')
 
 export class Route implements routeInterface{
