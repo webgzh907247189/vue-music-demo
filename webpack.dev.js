@@ -153,9 +153,9 @@ module.exports = smp.wrap({
         overlay: true,           // 如果代码出错，会在浏览器页面弹出“浮动层”。类似于 vue-cli 等脚手架
         proxy: {
             /** 联调环境下 **/
-            // '/api/*': {
-            //     target: 'http://localhost:4000'
-            // }
+            '/api/*': {
+                target: 'http://localhost:4000'
+            }
 
             /** 开发环境下 **/
             // '/api/*': {
