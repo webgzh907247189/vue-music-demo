@@ -3,14 +3,16 @@ import * as Koa from 'koa';
 import {routeInterface} from './interface/interface'
 import {resolve} from 'path'
 import * as glob from 'glob'
+import {getEnv} from './config/index'
 
-export let routersMap:Map<{target: any, method: string, path: string}, Function | Function[]> = new Map()
+// export let 
 export const symbolPrefix:symbol = Symbol('prefix')
 
 export class Route implements routeInterface{
     public app: Koa
     public router: any
     public apiPath: string
+    static routersMap:Map<{target: any, method: string, path: string}, Function | Function[]> = new Map()
     
     constructor(app: Koa,apiPath: string){
         this.app = app;
@@ -19,12 +21,14 @@ export class Route implements routeInterface{
     }
 
     init(){
-        // console.log(resolve(this.apiPath, './*.ts'),'11')
-        glob.sync(resolve(this.apiPath, './*.js')).forEach(require);
+        let suffixName = getEnv() === 'development' ? 'ts' : 'js'
+        glob.sync(resolve(this.apiPath, `./*.${suffixName}`)).forEach(require);
+        
+        console.log(Route.routersMap)
 
-        for(let [conf,controller] of routersMap){
+        for(let [conf,controller] of Route.routersMap){
             const controllers = Array.isArray(controller) ? controller : [controller]
-            let prefixPath = conf.target(symbolPrefix)
+            let prefixPath = conf.target[symbolPrefix]
 
             const routePath = prefixPath + conf.path
             let requestMethod = conf.method
@@ -42,6 +46,7 @@ export function normalize(path: string){
 }
 
 export function controller(path: string){
+    path = normalize(path)
     return function(target: any){
         target.prototype[symbolPrefix] = path
     }
@@ -50,7 +55,7 @@ export function controller(path: string){
 export function router(conf: {path: string, method: string}){
     return function(target: any,key: string){
         conf.path = normalize(conf.path)
-        routersMap.set({
+        Route.routersMap.set({
             target,
             ...conf
         },target[key])
