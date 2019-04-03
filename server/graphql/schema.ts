@@ -1,30 +1,10 @@
 import {
-	GraphQLObjectType,
 	GraphQLSchema
 } from 'graphql';
+import {Query} from './schemaConfig'
 
-// 引入job的查询与操作
-import JobQueries from './job/query';
-import JobMutations from './job/mutation';
+const myGraphQLSchema = new GraphQLSchema({
+    query: Query
+});
 
-// 引入user
-import UserQueries from './user/query';
-import UserMutations from './user/mutation';
-
-
-export default new GraphQLSchema({
-	query: new GraphQLObjectType({
-		name: 'Queries',
-		fields: Object.assign(
-			JobQueries,
-			UserQueries
-		)
-	}),
-	mutation: new GraphQLObjectType({
-		name: 'Mutations',
-		fields: Object.assign(
-			JobMutations,
-			UserMutations
-		)
-	})
-})
+export {myGraphQLSchema}
