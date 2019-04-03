@@ -7,6 +7,12 @@ import {getEnv} from './config/index'
 
 export const symbolPrefix:symbol = Symbol('prefix')
 
+/**
+ * 装饰器执行时机
+ * 修饰器对类的行为的改变，是代码编译时发生的（不是TypeScript编译，而是js在执行机中编译阶段），而不是在运行时。
+ * 这意味着，修饰器能在编译阶段运行代码。也就是说，修饰器本质就是编译时执行的函数。
+ * 在Node.js环境中模块一加载时就会执行
+ */
 export class Route implements routeInterface{
     public app: Koa
     public router: any
@@ -64,6 +70,13 @@ export function router(conf: {path: string, method: string}){
 export function get(path: string){
     return router({
         method: 'get',
+        path: path
+    })
+}
+
+export function post(path: string){
+    return router({
+        method: 'post',
         path: path
     })
 }

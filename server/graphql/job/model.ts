@@ -17,4 +17,13 @@ export const jobType = new GraphQLObjectType({
 		}
 	}
 })
-module.exports = {jobType}
+
+// 定义输入的的模型
+export let jobInput = new GraphQLInputObjectType({
+	name: 'jobInput',
+	fields: {
+		job_name: {
+			type: GraphQLString
+		}
+	}
+})
