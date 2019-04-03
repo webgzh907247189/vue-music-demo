@@ -1,11 +1,15 @@
 <template>
-	<div :class="$style.test">
+	<div :class="$style.test" @click="createComponent">
         我是reCommend
+        <div id="container" ref="container">
+
+        </div>
 	</div>
 </template>
 
 <script>
-	import {getBaner,baseUrl,config,dataConfig,requestUrl} from '@/api/index'
+    import {getBaner,baseUrl,config,dataConfig,requestUrl} from '@/api/index'
+    import Vue from 'vue'
 	export default {
 		name: 'reCommend',
 		data() {
@@ -21,10 +25,28 @@
 				},'').slice(1)
 				let url = requestUrl + (params.includes('?') ? params : `?${params}`)
 				getBaner(url)
-			}
+            },
+            createComponent(){
+                /***
+                 * https://mp.weixin.qq.com/s/eR-xkKmj_greWRsOmCDLwg
+                 */
+                let MyComponent = Vue.extend({
+                    template: '<p>{{testVal}}</p>',
+                    data(){
+                        return {
+                        }
+                    },
+                    props: ['testVal']
+                })
+                let myComponent = new MyComponent({
+                    propsData: { testVal: "996" }
+                })
+                myComponent.$mount();
+                this.$refs.container.appendChild(myComponent.$el);
+            }
 		},
 		created(){
-			this._getBanner()
+            this._getBanner()
 		}
 	}
 
